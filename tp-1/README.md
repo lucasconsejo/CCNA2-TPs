@@ -172,7 +172,7 @@
 
     [Voir ping.pcap](https://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-1/ping.pcap)
 
-    ![Wireshark](https://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-1/screen.png)
+![](https://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-1/screen.png)
 
 ### II. Communication simple entre deux machines
 #### 1. Mise en place
