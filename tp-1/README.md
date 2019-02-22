@@ -172,7 +172,7 @@
 
     [Voir ping.pcap](https://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-1/ping.pcap)
 
-![](https://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-1/screen.png)
+    ![Wireshark](https://github.com/lucasconsejo/CCNA2-TPs/blob/master/tp-1/screen.png)
 
 ### II. Communication simple entre deux machines
 #### 1. Mise en place
@@ -236,7 +236,7 @@
 
     [Voir ping-2.pcap](https://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-1/ping-2.pcap)
 
-    ![Wireshark](https://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-1/screen-2.png)
+    ![Wireshark](https://github.com/lucasconsejo/CCNA2-TPs/blob/master/tp-1/screen-2.png)
 
 * **netcat/UDP**
     
@@ -285,7 +285,7 @@
     
     [Voir nc-udp.pcap](https://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-1/nc-udp.pcap)
 
-    ![Wireshark](https://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-1/screen-3.png)
+    ![Wireshark](https://github.com/lucasconsejo/CCNA2-TPs/blob/master/tp-1/screen-3.png)
 
 * **netcat/TCP**
 
@@ -339,7 +339,6 @@
     [Voir nc-tcp.pcap](https://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-1/nc-tcp.pcap)
 
     ![Wireshark](https://github.com/lucasconsejo/CCNA2-TPs/blob/master/tp-1/screen-4.png)
-
 * **netcat/Firewall**
 
     * Sur client1 :
