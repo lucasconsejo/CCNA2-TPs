@@ -11,7 +11,8 @@
     - Il y a 2 adresses disponibles dans un /30
 
 * **Quelle est l'utilité d'un /30 ?**
-    - I don't know :eyes:
+    - I don't know :grey_question: 
+    - (Moins d'adresse sur le réseau, donc il y a un meilleur contrôle :eyes:)
 
 * **Expliquer le retour que vous obtenez (code retour HTTP 301)**
     - L'erreur HTTP 301 signifie que l'url recherché a été bloqué de façon permanente.
