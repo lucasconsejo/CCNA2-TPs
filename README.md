@@ -1,5 +1,5 @@
 # CCNA2-TPs
-Rendu des différents tp en CCNA2
+Repo de rendu des différents tp en CCNA2
 
 ## Les rendus de TP
 * [TP 1 - Remise dans le bain](https://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-1)
