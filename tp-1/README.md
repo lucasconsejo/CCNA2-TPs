@@ -41,7 +41,7 @@
 
     #### Après avoir vider la Table ARP
     ```bash
-        10.1.2.1 dev enp0s9 lladdr 0a:00:27:00:00:4c DELAY
+        10.1.2.1 dev enp0s9 lladdr 0a:00:27:00:00:4c STALE
      ```
     - 10.1.2.1 => Autre ip disponible sur le meme réseau
     - dev enp0s9 => Nom du device - enp0s8
