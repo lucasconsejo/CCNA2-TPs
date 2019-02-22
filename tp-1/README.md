@@ -170,9 +170,9 @@
         0 packets dropped by kernel
     ```
 
-    [Voir ping.pcap](https://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-1/ping.pcap)
+    [Voir ping.pcap](https://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-1/pcap/ping.pcap)
 
-    ![Wireshark](https://github.com/lucasconsejo/CCNA2-TPs/blob/master/tp-1/screen.png)
+    ![Wireshark](https://github.com/lucasconsejo/CCNA2-TPs/blob/master/tp-1/screen/ping.png)
 
 ### II. Communication simple entre deux machines
 #### 1. Mise en place
@@ -233,10 +233,10 @@
             10 packets received by filter
             0 packets dropped by kernel
         ```
+    
+    [Voir ping-2.pcap](https://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-1/pcap/ping-2.pcap)
 
-    [Voir ping-2.pcap](https://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-1/ping-2.pcap)
-
-    ![Wireshark](https://github.com/lucasconsejo/CCNA2-TPs/blob/master/tp-1/screen-2.png)
+    ![Wireshark](https://github.com/lucasconsejo/CCNA2-TPs/blob/master/tp-1/screen/ping-2.png)
 
 * **netcat/UDP**
     
@@ -283,9 +283,10 @@
             0 packets dropped by kernel
         ```
     
-    [Voir nc-udp.pcap](https://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-1/nc-udp.pcap)
 
-    ![Wireshark](https://github.com/lucasconsejo/CCNA2-TPs/blob/master/tp-1/screen-3.png)
+    [Voir nc-udp.pcap](https://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-1/pcap/nc-udp.pcap)
+
+    ![Wireshark](https://github.com/lucasconsejo/CCNA2-TPs/blob/master/tp-1/screen/nc-udp.png)
 
 * **netcat/TCP**
 
@@ -335,10 +336,12 @@
             15 packets received by filter
             0 packets dropped by kernel
         ```
+        
     
-    [Voir nc-tcp.pcap](https://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-1/nc-tcp.pcap)
+    [Voir nc-tcp.pcap](https://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-1/pcap/nc-tcp.pcap)
 
-    ![Wireshark](https://github.com/lucasconsejo/CCNA2-TPs/blob/master/tp-1/screen-4.png)
+    ![Wireshark](https://github.com/lucasconsejo/CCNA2-TPs/blob/master/tp-1/screen/nc-tcp.png)
+    
 * **netcat/Firewall**
 
     * Sur client1 :
@@ -369,9 +372,10 @@
             0 packets dropped by kernel
         ```
     
-    [Voir firewall.pcap](https://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-1/firewall.pcap)
 
-    ![Wireshark](https://github.com/lucasconsejo/CCNA2-TPs/blob/master/tp-1/screen-5.png)
+    [Voir firewall.pcap](https://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-1/pcap/firewall.pcap)
+
+    ![Wireshark](https://github.com/lucasconsejo/CCNA2-TPs/blob/master/tp-1/screen/firewall.png)
 
 ### III. Routage statique simple
 * Sur client1 :
