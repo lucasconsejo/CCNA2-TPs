@@ -39,7 +39,7 @@
     - lladdr 0a:00:27:00:00:48 => Adresse MAC
     - REACHABLE => l'adresse est accessible
 
-    #### Après avoir vider la Table ARP
+    #### Après avoir vidé la Table ARP
     ```bash
         10.1.2.1 dev enp0s9 lladdr 0a:00:27:00:00:4c STALE
      ```
