@@ -48,4 +48,4 @@
     - STALE => l'adresse vient d'être rajouté
 
 ## Auteur
-Rédigé par [Lucas Consejo](https://github.com/lucasconsejo)
+Rédigé par [Lucas Consejo](https://github.com/lucasconsejo) - Etudiant Ingésup B2B [Ynov Bordeaux](https://www.ynov.com/)
