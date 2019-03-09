@@ -201,12 +201,7 @@
             --- 10.2.1.10 ping statistics ---
             2 packets transmitted, 2 received, 0% packet loss, time 1002ms
             rtt min/avg/max/mdev = 1.132/1.172/1.213/0.053 ms
-        ```
-
-    * **Pourquoi router1 ne peut pas ping server1 ?**
-
-        * Le router1 ne peut pas ping server1 car 
-    
+        ```   
 
 ### 3. Visualisation du routage avec Wireshark
 
@@ -342,13 +337,247 @@
             sudo ifdown enp0s8
             sudo ifdup enp0s8
         ```
+    * On demande une nouvelle ip
+        ```bash
+            dhclient -v -r           
+        ```
+        * L'ip devient 10.2.1.50
+
+    * On check la route par defaut
+        ```bash
+            ip route show
+
+            default via 10.2.1.254 dev enp0s8 proto static metric 100
+            10.2.1.0/24 dev enp0s8 proto kernel scope link src 10.2.1.50 metric 100
+        ```
+### 3. NTP server
+
+* router1 && router2:
+    * Installation de chrony
+        ```bash
+            yum install -y chrony    
+        ```
+    * Config chrony
+        ```bash
+            cat /etc/chrony.conf   
+
+            server 0.fr.pool.ntp.org iburst
+            server 1.fr.pool.ntp.org iburst
+            server 2.fr.pool.ntp.org iburst
+            server 3.fr.pool.ntp.org iburst
+        ```
+    * Port pour NTP
+        ```bash
+            sudo firewall-cmd --add-port=123/udp --permanent
+            success
+
+            sudo firewall-cmd --reload
+            success
+        ```
+    * Restart chrony
+        ```bash
+            sudo systemctl start chronyd
+        ```
+    * On verifie la synchro NTP 
+        ```bash
+            chronyc sources
+
+            210 Number of sources = 4
+            MS Name/IP address         Stratum Poll Reach LastRx Last sample
+            ===============================================================================
+            ^* x.ns.gin.ntt.net              2   6    37    24   -195us[+1319us] +/-   77ms
+            ^- 6mc-a7aifk.6metric.fr         2   6    37    27  +2251us[+2251us] +/-   56ms
+            ^- support4.russianbridesne>     2   6    37    32  -3564us[-3564us] +/-   47ms
+            ^- net1.web.yas-online.net       3   6    37    37  -8343us[-8343us] +/-   75ms
+        ```
+        ```bash
+            chronyc tracking
+
+            Reference ID    : 81FA23FA (x.ns.gin.ntt.net)
+            Stratum         : 3
+            Ref time (UTC)  : Sat Mar 09 12:43:36 2019
+            System time     : 0.001167651 seconds slow of NTP time
+            Last offset     : -0.000153610 seconds
+            RMS offset      : 0.001712065 seconds
+            Frequency       : 1.285 ppm fast
+            Residual freq   : -0.063 ppm
+            Skew            : 19.912 ppm
+            Root delay      : 0.143136293 seconds
+            Root dispersion : 0.004816985 seconds
+            Update interval : 64.8 seconds
+            Leap status     : Normal
+        ```
+
+* server1:
+
+    ***Hummmmm.... Il n'y a pas d'acces à internet sur server1 !!***
+
+    * Config firewall
+        ```bash
+            sudo firewall-cmd --zone=internal --add-masquerade --permanent
+            success
+
+            sudo firewall-cmd --add-service=http --permanent
+            success
+
+            sudo firewall-cmd --add-service=https --permanent
+            success
+
+            sudo firewall-cmd --reload
+            success
+        ```
+
+    * On ajoute une route par default vers router2
+        ```bash
+            ip route show
+
+            default via 10.2.2.254 dev enp0s8 proto static metric 100
+            10.2.1.0/24 via 10.2.2.254 dev enp0s8 proto static metric 100
+            10.2.2.0/24 dev enp0s8 proto kernel scope link src 10.2.2.10 metric 100
+        ```
+
+    * Installation de chrony
+        ```bash
+            yum install -y chrony    
+        ```
+    * Config chrony
+        ```bash
+            cat /etc/chrony.conf   
+
+            server 0.fr.pool.ntp.org iburst
+            server 1.fr.pool.ntp.org iburst
+            server 2.fr.pool.ntp.org iburst
+            server 3.fr.pool.ntp.org iburst
+        ```
+    * Port pour NTP
+        ```bash
+            sudo firewall-cmd --add-port=123/udp --permanent
+            success
+
+            sudo firewall-cmd --reload
+            success
+        ```
+    * Restart chrony
+        ```bash
+            sudo systemctl start chronyd
+        ```
+    * On verifie la synchro NTP 
+        ```bash
+            chronyc sources
+
+            210 Number of sources = 4
+            MS Name/IP address         Stratum Poll Reach LastRx Last sample
+            ===============================================================================
+            ^* x.ns.gin.ntt.net              2   6    37    24   -195us[+1319us] +/-   77ms
+            ^- 6mc-a7aifk.6metric.fr         2   6    37    27  +2251us[+2251us] +/-   56ms
+            ^- support4.russianbridesne>     2   6    37    32  -3564us[-3564us] +/-   47ms
+            ^- net1.web.yas-online.net       3   6    37    37  -8343us[-8343us] +/-   75ms
+        ```
+        ```bash
+            chronyc tracking
+
+            Reference ID    : 81FA23FA (x.ns.gin.ntt.net)
+            Stratum         : 3
+            Ref time (UTC)  : Sat Mar 09 13:24:17 2019
+            System time     : 0.000068744 seconds slow of NTP time
+            Last offset     : +0.000115458 seconds
+            RMS offset      : 0.000115458 seconds
+            Frequency       : 3.131 ppm slow
+            Residual freq   : +0.824 ppm
+            Skew            : 1.583 ppm
+            Root delay      : 0.023592317 seconds
+            Root dispersion : 0.035824973 seconds
+            Update interval : 1.9 seconds
+            Leap status     : Normal
+        ```
 
 
+### 4. Web server
 
+* server1:
 
+    * Activation des dépôts EPEL
+        ```bash
+            sudo yum install -y epel-release
+        ```
 
-### 2. Routage statique
-### 3. Visualisation du routage avec Wireshark  
+    * Installation nginx
+        ```bash
+            sudo yum install -y nginx
+        ```
+    * Port 80
+        ```bash
+            sudo firewall-cmd --add-port=80/tcp --permanent
+            success
+
+            sudo firewall-cmd --reload
+            success
+        ```
+    * Lancer le server
+        ```bash
+            sudo systemctl start nginx
+        ```
+    * Verifier si le server est lancé
+        ```bash
+            sudo systemctl status nginx
+
+            ● nginx.service - The nginx HTTP and reverse proxy server
+            Loaded: loaded (/usr/lib/systemd/system/nginx.service; disabled; vendor preset: disabled)
+            Active: active (running) since sam. 2019-03-09 14:43:05 CET; 55s ago
+            Process: 1539 ExecStart=/usr/sbin/nginx (code=exited, status=0/SUCCESS)
+            Process: 1536 ExecStartPre=/usr/sbin/nginx -t (code=exited, status=0/SUCCESS)
+            Process: 1534 ExecStartPre=/usr/bin/rm -f /run/nginx.pid (code=exited, status=0/SUCCESS)
+            Main PID: 1541 (nginx)
+            CGroup: /system.slice/nginx.service
+                    ├─1541 nginx: master process /usr/sbin/nginx
+                    ├─1542 nginx: worker process
+                    └─1543 nginx: worker process
+
+            mars 09 14:43:05 server1.tp2.b2 systemd[1]: Starting The nginx HTTP and reverse proxy se.....
+            mars 09 14:43:05 server1.tp2.b2 nginx[1536]: nginx: the configuration file /etc/nginx/ng...ok
+            mars 09 14:43:05 server1.tp2.b2 nginx[1536]: nginx: configuration file /etc/nginx/nginx....ul
+            mars 09 14:43:05 server1.tp2.b2 systemd[1]: Started The nginx HTTP and reverse proxy server.
+            Hint: Some lines were ellipsized, use -l to show in full.
+        ```
+
+        ```bash
+            ss -l -t -4
+
+            State       Recv-Q Send-Q Local Address:Port                 Peer Address:Port               
+            LISTEN      0      128              *:http                           *:*
+            LISTEN      0      128              *:ssh                            *:*
+            LISTEN      0      100      127.0.0.1:smtp    
+        ```
+* client1 :
+
+    * Curl du site de server1
+        ```bash
+            curl 10.2.2.10
+        ```
+
+    * Resultat
+        ```html
+            <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+            <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+            <head>
+                <title>Test Nginx HTTP Server by Lucas Consejo</title>
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            </head>
+
+            <body>
+                <h1>Welcome to my test page</h1>
+
+                <div class="content">
+                    <p>I don't hnow what to say except that the server is running and
+                       I have finished the TP !</p>
+
+                    <p>Here is the repo git of the rendering of the TP : <a href="http://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-2">lien 
+                       vers le repo git></a></p>
+                </div>
+            </body>
+        </html>
+        ```
 
 
 ## Auteur
