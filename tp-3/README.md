@@ -134,7 +134,64 @@
 ## II. Manipulation simple de routeurs
 
 ### 1. Mise en place du lab
+* Client 1 
+    - ip : 10.2.1.10 (lab2-net1)
+    - hostname : client1.lab2.tp3
 
+*  Client 2
+    - ip : 10.2.1.11 (lab2-net1)
+    - hostname : client2.lab2.tp3
+
+* Server 1
+    - ip : 10.2.2.10 (lab2-net2)
+    - hostname : server1.lab2.tp3
+
+* Router 1
+    - ip : 10.2.1.254 (lab2-net1) && 10.2.12.1/30 (lab2-net12)
+    - hostname : router1.lab2.tp3
+
+* Router 2
+    - ip : 10.2.2.254 (lab2-net2) && 10.2.12.2/30 (lab2-net12)
+    - hostname : router2.lab2.tp3
+
+
+* Verification 
+    * Client2->Router1
+        ```bash
+            ping 10.2.1.254
+                
+            PING 10.2.1.254 (10.2.1.254) 56(84) bytes of data.
+            64 bytes from 10.2.1.254: icmp_seq=1 ttl=255 time=1.98 ms
+            64 bytes from 10.2.1.254: icmp_seq=2 ttl=255 time=1.92 ms
+            ^C
+            --- 10.2.1.254 ping statistics ---
+            2 packets transmitted, 2 received, 0% packet loss, time 2001ms
+        ```
+
+    * Server1->Router2
+        ```bash
+            ping 10.2.2.254
+                
+            PING 10.2.2.254 (10.2.2.254) 56(84) bytes of data.
+            64 bytes from 10.2.2.254: icmp_seq=1 ttl=255 time=1.87 ms
+            64 bytes from 10.2.2.254: icmp_seq=2 ttl=255 time=1.54 ms
+            ^C
+            --- 10.2.2.254 ping statistics ---
+            2 packets transmitted, 2 received, 0% packet loss, time 2008ms
+        ```
+    
+    * Router2->Route1
+        ```bash
+            ping 10.2.12.1
+                
+            PING 10.2.12.1 (10.2.12.1) 56(84) bytes of data.
+            64 bytes from 10.2.12.1: icmp_seq=1 ttl=255 time=1.93 ms
+            64 bytes from 10.2.12.1: icmp_seq=2 ttl=255 time=1.87 ms
+            ^C
+            --- 10.2.12.1 ping statistics ---
+            2 packets transmitted, 2 received, 0% packet loss, time 2002ms
+        ```
+        
 ### 2. Configuration du routage statique
 
 ## III. Mise en place d'OSPF
