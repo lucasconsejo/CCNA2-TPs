@@ -241,7 +241,7 @@
             2 packets transmitted, 2 received, 0% packet loss, time 2002ms
         ```
 
-* Topologie
+* Proposition de Topologie
 
 ```
     client1       switch                router1       router2
@@ -259,25 +259,67 @@
 
 ## III. Mise en place d'OSPF
 
+### 1. Mise en place du lab
+
 * Tableau d'adressage
 
-| Hosts            | 10.3.100.0/30 | 10.3.100.4/30 | 10.3.100.8/30  | 10.3.100.12/30 | 10.3.100.16/30 | 10.3.100.20/30 | 10.3.101.0/24   | 10.3.102.0/24   |
-|------------------|---------------|---------------|----------------|----------------|----------------|----------------|-----------------|-----------------|
-| client1.lab3.tp3 | x             | x             | x              | x              | x              | x              | 10.3.101.10/24  | x               |
-| server1.lab3.tp3 | x             | x             | x              | x              | x              | x              | x               | 10.3.102.10/24  |
-| router1.lab3.tp3 | 10.3.100.1/30 | x             | x              | x              | x              | 10.3.100.22/30 | x               | 10.3.102.254/24 |
-| router2.lab3.tp3 | 10.3.100.2/30 | 10.3.100.5/30 | x              | x              | x              | x              | x               | x               |
-| router3.lab3.tp3 | x             | 10.3.100.6/30 | 10.3.100.9/30  | x              | x              | x              | x               | x               |
-| router4.lab3.tp3 | x             | x             | 10.3.100.10/30 | 10.3.100.13/30 | x              | x              | 10.3.101.254/24 | x               |
-| router5.lab3.tp3 | x             | x             | x              | 10.3.100.14/30 | 10.3.100.17/30 | x              | x               | x               |
-| router6.lab3.tp3 | x             | x             | x              | x              | 10.3.100.18/30 | 10.3.100.21/30 | x               | x               |
+    | Hosts            | 10.3.100.0/30 | 10.3.100.4/30 | 10.3.100.8/30  | 10.3.100.12/30 | 10.3.100.16/30 | 10.3.100.20/30 | 10.3.101.0/24   | 10.3.102.0/24   |
+    |------------------|---------------|---------------|----------------|----------------|----------------|----------------|-----------------|-----------------|
+    | client1.lab3.tp3 | x             | x             | x              | x              | x              | x              | 10.3.101.10/24  | x               |
+    | server1.lab3.tp3 | x             | x             | x              | x              | x              | x              | x               | 10.3.102.10/24  |
+    | router1.lab3.tp3 | 10.3.100.1/30 | x             | x              | x              | x              | 10.3.100.22/30 | x               | 10.3.102.254/24 |
+    | router2.lab3.tp3 | 10.3.100.2/30 | 10.3.100.5/30 | x              | x              | x              | x              | x               | x               |
+    | router3.lab3.tp3 | x             | 10.3.100.6/30 | 10.3.100.9/30  | x              | x              | x              | x               | x               |
+    | router4.lab3.tp3 | x             | x             | 10.3.100.10/30 | 10.3.100.13/30 | x              | x              | 10.3.101.254/24 | x               |
+    | router5.lab3.tp3 | x             | x             | x              | 10.3.100.14/30 | 10.3.100.17/30 | x              | x               | x               |
+    | router6.lab3.tp3 | x             | x             | x              | x              | 10.3.100.18/30 | 10.3.100.21/30 | x               | x               |
 
-### 1. Mise en place du lab
+* Verification 
+
+    * Client1->Router4
+        ```bash
+            ping 10.3.101.254
+
+            PING 10.3.101.254 (10.3.101.254) 56(84) bytes of data.
+            64 bytes from 10.3.101.254: icmp_seq=1 ttl=62 time=2.15 ms
+            64 bytes from 10.3.101.254: icmp_seq=2 ttl=62 time=2.64 ms
+            ^C
+            --- 10.3.101.254 ping statistics ---
+            2 packets transmitted, 2 received, 0% packet loss, time 2106ms
+        ```
+
+    * Server1->Router1
+        ```bash
+            ping 10.3.102.254
+
+            PING 10.3.102.254 (10.3.102.254) 56(84) bytes of data.
+            64 bytes from 10.3.102.254: icmp_seq=1 ttl=62 time=2.37 ms
+            64 bytes from 10.3.102.254: icmp_seq=1 ttl=62 time=2.60 ms
+            64 bytes from 10.3.102.254: icmp_seq=1 ttl=62 time=2.32 ms
+            ^C
+            --- 10.3.102.254 ping statistics ---
+            3 packets transmitted, 3 received, 0% packet loss, time 2562ms
+        ```
+    
+    * Router5->Router6
+        ```bash
+            ping 10.3.100.18
+
+            PING 10.3.100.18 (10.3.100.18) 56(84) bytes of data.
+            64 bytes from 10.3.100.18: icmp_seq=1 ttl=62 time=1.91 ms
+            64 bytes from 10.3.100.18: icmp_seq=1 ttl=62 time=1.97 ms
+            64 bytes from 10.3.100.18: icmp_seq=1 ttl=62 time=1.88 ms
+            64 bytes from 10.3.100.18: icmp_seq=1 ttl=62 time=2.02 ms
+            ^C
+            --- 10.3.100.18 ping statistics ---
+            4 packets transmitted, 4 received, 0% packet loss, time 2248ms
+        ```
+
+### 2. Configuration de OSPF
+
+
 
 ## IV. Lab Final
-
-### 1. Mise en place du lab
-### 2. Configuration de OSPF
 
 ## Annexe 1 : NAT dans GNS3
 
