@@ -317,11 +317,50 @@
 
 ### 2. Configuration de OSPF
 
+* OSPF sur tout les routers (Je montre la manip que pour 1)
 
+    * Activation 
+        ```bash
+            router ospf 1
+        ``` 
+    * Attribution d'un id
+        ```bash
+            router-id 1.1.1.1
+        ``` 
+    * Partage de tous les réseaux auquel le routeur est connecté 
+        ```bash
+           network 10.3.100.0 0.0.0.3 area 0
+           network 10.3.102.0 0.0.0.255 area 2
+        ```
 
+* Verification 
+    
+    * Router2->Router3
+         ```bash
+            ping 10.3.100.6
+
+            PING 10.3.100.6 (10.3.100.6) 56(84) bytes of data.
+            64 bytes from 10.3.100.6: icmp_seq=1 ttl=62 time=1.75 ms
+            64 bytes from 10.3.100.6: icmp_seq=1 ttl=62 time=1.82 ms
+            64 bytes from 10.3.100.6: icmp_seq=1 ttl=62 time=1.79 ms
+            ^C
+            --- 10.3.100.18 ping statistics ---
+            3 packets transmitted, 3 received, 0% packet loss, time 2102ms
+        ```
+    
+    * Client1->Server1 
+        ```bash
+            ping 10.3.102.10
+
+            PING 10.3.102.10 (10.3.102.10) 56(84) bytes of data.
+            64 bytes from 10.3.102.10: icmp_seq=1 ttl=62 time=2.17 ms
+            64 bytes from 110.3.102.10: icmp_seq=1 ttl=62 time=2.09 ms
+            ^C
+            --- 10.3.102.10 ping statistics ---
+            2 packets transmitted, 2 received, 0% packet loss, time 2025ms
+        ```
+        
 ## IV. Lab Final
-
-## Annexe 1 : NAT dans GNS3
 
 
 
