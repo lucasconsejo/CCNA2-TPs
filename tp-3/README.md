@@ -191,8 +191,29 @@
             --- 10.2.12.1 ping statistics ---
             2 packets transmitted, 2 received, 0% packet loss, time 2002ms
         ```
-        
+
 ### 2. Configuration du routage statique
+
+* Ajouter des routes :
+
+    - Client2 :
+        ```bash
+            sudo ip route add 10.2.2.0/24 via 10.2.1.254 dev enp0s3
+        ```
+    - Server1 :
+        ```bash
+            sudo ip route add 10.2.1.0/24 via 10.2.2.254 dev enp0s3
+        ```
+    - Router1 :
+        ```bash
+            sudo ip route 10.2.2.0 255.255.255.0 10.2.12.2
+        ```
+
+    - Router2 :
+        ```bash
+            sudo ip route 10.2.1.0 255.255.255.0 10.2.12.1
+        ```
+
 
 ## III. Mise en place d'OSPF
 
