@@ -214,6 +214,50 @@
             sudo ip route 10.2.1.0 255.255.255.0 10.2.12.1
         ```
 
+* Verification
+
+    * Client2->Server1
+        ```bash
+            ping 10.2.2.10
+                
+            PING 10.2.2.10 (10.2.2.10) 56(84) bytes of data.
+            64 bytes from 10.2.2.10: icmp_seq=1 ttl=255 time=1.98 ms
+            64 bytes from 10.2.2.10: icmp_seq=2 ttl=255 time=1.92 ms
+            64 bytes from 10.2.2.10: icmp_seq=2 ttl=255 time=1.95 ms
+            ^C
+            --- 10.2.2.10 ping statistics ---
+            3 packets transmitted, 3 received, 0% packet loss, time 2002ms
+        ```
+
+    * Server1->Client2
+        ```bash
+            ping 10.2.1.11
+                
+            PING 10.2.1.11 (10.2.1.11) 56(84) bytes of data.
+            64 bytes from 10.2.1.11: icmp_seq=1 ttl=255 time=1.91 ms
+            64 bytes from 10.2.1.11: icmp_seq=2 ttl=255 time=1.83 ms
+            ^C
+            --- 10.2.1.11 ping statistics ---
+            2 packets transmitted, 2 received, 0% packet loss, time 2002ms
+        ```
+
+* Topologie
+
+```
+    client1       switch                router1       router2
+    +----+       +-------+              +------+      +------+
+    |    +-------+       +--------------+      +------+      |
+    +----+       +-------+              +------+      +------+
+                     |                                    |
+                     |                                    |
+                     |                                    |
+                   +----+                               +----+ 
+                   |    |                               |    |
+                   +----+                               +----+
+                   client2                              server1
+
+```
+
 
 ## III. Mise en place d'OSPF
 
