@@ -368,9 +368,9 @@
         client1       switch1              router1       router2            switch2
         +-----+       +-------+            +-----+       +-----+            +-------+
         |     +-------+       +------------+     +-------+     +------------+       |
-        +-----+       +---+---+            +--+--+       +--+--+            +-------+
+        +-----+  V10  +---+---+            +--+--+       +--+--+            +-------+
                           |                   |             |                   |
-                          |                   |   router3   |                   |
+                          | V20               |   router3   |                   | V30
                           |                   |   +-----+   |                   |
                        +--+--+                +---+     +---+                +--+--+ 
                        |     |                    +--+--+                    |     |
@@ -380,7 +380,8 @@
                                                   +--+--+
                                                   |     |
                                                   +-----+
-                                                  nat 
+                                                  nat
+        *V = VLAN
     ```       
 * Tableau d'adressage
 
@@ -394,7 +395,161 @@
     | router3.lab4.tp3 | x              | x              | x              | 10.3.13.14/30  | 10.3.14.22/30  |
 
 
+*  Configuration des clients et du server
+    * Ajouter une ip - *Exemple sur client1*
+        ```bash
+            cat /etc/sysconfig/network-scripts/ifcfg-enp0s8
 
+            TYPE=Ethernet
+            BOOTPROTO=static
+            NAME=enp0s8
+            DEVICE=enp0s8
+            ONBOOT=yes
+            IPADDR=10.3.10.1
+            NETMASK=255.255.255.0
 
+            sudo ifdown enp0s8
+            sudo ifup enp0s8
+        ```
+    * Changer l'hostname
+        ```bash
+            sudo hostname client1.lab4.tp3
+        ```
+    
+    * Test de ping client1->client2
+        ```bash
+            ping 10.3.10.2
+
+            PING 10.1.1.2 (10.1.1.2) 56(84) bytes of data.
+            64 bytes from 10.1.1.2: icmp_seq=1 ttl=64 time=2.72 ms
+            64 bytes from 10.1.1.2: icmp_seq=2 ttl=64 time=2.25 ms
+            ^C
+            --- 10.1.1.2 ping statistics ---
+            2 packets transmitted, 2 received, 0% packet loss, time 2104ms
+        ```
+
+*  Configuration des 2 switch
+    * Mise en place des ports en mode access
+
+        * Sur switch1
+            * Création de VLAN 10 
+                ```bash
+                    conf t
+                    vlan 10
+                    name VLAN 10
+                    exit
+                ```
+            * Assigner une interface pour donner accès au VLAN
+                ```bash
+                    interface Ethernet 0/0
+                    switchport mode access
+                    switchport access vlan 10
+                ```
+
+            * Création de VLAN 20
+                ```bash
+                    conf t
+                    vlan 20
+                    name VLAN 20
+                    exit
+                ```
+            * Assigner une interface pour donner accès au VLAN
+                ```bash
+                    interface Ethernet 0/1
+                    switchport mode access
+                    switchport access vlan 20
+                ```
+
+            * Configurer une interface entre switch1 et router1 (mode Trunk)
+                ```bash
+                    interface Ethernet 0/2
+                    switchport trunk encapsulation dot1q
+                    switchport mode trunk
+                ```
+
+        * Sur switch2
+            * Création de VLAN 30 
+                ```bash
+                    conf t
+                    vlan 30
+                    name VLAN 30
+                    exit
+                ```
+            * Assigner une interface pour donner accès au VLAN
+                ```bash
+                    interface Ethernet 0/0
+                    switchport mode access
+                    switchport access vlan 30
+                ```
+
+        * Configurer une interface entre switch2 et router2 (mode Trunk)
+                ```bash
+                    interface Ethernet 0/1
+                    switchport trunk encapsulation dot1q
+                    switchport mode trunk
+                ```
+
+* Configuration des 3 routers
+    * OSPF sur tout les routers 
+
+        * Activation - *Exemple sur router1*
+            ```bash
+                router ospf 1
+            ``` 
+        * Attribution d'un id
+            ```bash
+                router-id 1.1.1.1
+            ``` 
+        * Partage de tous les réseaux auquel le routeur est connecté 
+            ```bash
+                network 10.3.10.0  0.0.0.255 area 0
+                network 10.3.12.4 0.0.0.3 area 0
+                network 10.3.13.12 0.0.0.3 area 0
+            ```
+
+* Test si les clients peuvent ping le server
+    * Avant faut mettre les *GATEWAY* (J'avais oublié)
+        * Sur client1 & client2
+            ```bash
+                cat /etc/sysconfig/network-scripts/ifcfg-enp0s8
+
+                TYPE=Ethernet
+                BOOTPROTO=static
+                NAME=enp0s8
+                DEVICE=enp0s8
+                ONBOOT=yes
+                IPADDR=10.3.10.1
+                NETMASK=255.255.255.0
+                GATEWAY=10.3.10.254
+            ```
+        * Sur server1
+            ```bash
+                cat /etc/sysconfig/network-scripts/ifcfg-enp0s8
+
+                TYPE=Ethernet
+                BOOTPROTO=static
+                NAME=enp0s8
+                DEVICE=enp0s8
+                ONBOOT=yes
+                IPADDR=10.3.11.1
+                NETMASK=255.255.255.0
+                GATEWAY=10.3.11.254
+            ```
+        
+    * ping client1->server1
+        ```bash
+            ping 10.3.11.1
+
+            PING 10.3.11.1 (10.3.11.1) 56(84) bytes of data.
+            64 bytes from 10.3.11.1: icmp_seq=1 ttl=64 time=2.92 ms
+            64 bytes from 10.3.11.1: icmp_seq=1 ttl=64 time=2.27 ms
+            64 bytes from 10.3.11.1: icmp_seq=1 ttl=64 time=2.32 ms
+            64 bytes from 10.3.11.1: icmp_seq=1 ttl=64 time=2.59 ms
+            ^C
+            --- 10.3.11.1 ping statistics ---
+            4 packets transmitted, 4 received, 0% packet loss, time 2731ms
+        ```
+  
+  
 ## Auteur
 Rédigé par [Lucas Consejo](https://github.com/lucasconsejo) - Etudiant Ingésup B2B [Ynov Bordeaux](https://www.ynov.com/)
