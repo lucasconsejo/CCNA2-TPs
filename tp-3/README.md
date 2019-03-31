@@ -396,7 +396,7 @@
     | router3.lab4.tp3 | x              | x              | x              | 10.3.13.14/30  | 10.3.14.22/30  |
 
 
-*  Configuration des clients et des servers
+1. Configuration des clients et des servers
     * Ajouter une ip - *Exemple sur client1*
         ```bash
             cat /etc/sysconfig/network-scripts/ifcfg-enp0s8
@@ -429,7 +429,7 @@
             2 packets transmitted, 2 received, 0% packet loss, time 2104ms
         ```
 
-*  Configuration des 2 switch
+2. Configuration des 2 switch
     * Mise en place des ports en mode access
 
         * Sur switch1
@@ -503,7 +503,7 @@
                     switchport mode trunk
                 ```
 
-* Configuration inter-vlan
+3. Configuration inter-vlan
 
     * sur router1
         ```bash
@@ -538,7 +538,7 @@
             exit
         ```
 
-* Configuration des 3 routers
+4. Configuration des 3 routers
     * OSPF sur tout les routers 
 
         * Activation - *Exemple sur router1*
@@ -556,49 +556,7 @@
                 network 10.3.13.12 0.0.0.3 area 0
             ```
 
-* Test si les clients peuvent ping les servers
-    * Avant faut mettre les *GATEWAY* (J'avais oublié)
-        * Sur client1 & client2
-            ```bash
-                cat /etc/sysconfig/network-scripts/ifcfg-enp0s8
-
-                TYPE=Ethernet
-                BOOTPROTO=static
-                NAME=enp0s8
-                DEVICE=enp0s8
-                ONBOOT=yes
-                IPADDR=10.3.10.1
-                NETMASK=255.255.255.0
-                GATEWAY=10.3.10.254
-            ```
-        * Sur server1 et server2
-            ```bash
-                cat /etc/sysconfig/network-scripts/ifcfg-enp0s8
-
-                TYPE=Ethernet
-                BOOTPROTO=static
-                NAME=enp0s8
-                DEVICE=enp0s8
-                ONBOOT=yes
-                IPADDR=10.3.11.1
-                NETMASK=255.255.255.0
-                GATEWAY=10.3.11.254
-            ```
-        
-    * ping client1->server1
-        ```bash
-            ping 10.3.11.1
-
-            PING 10.3.11.1 (10.3.11.1) 56(84) bytes of data.
-            64 bytes from 10.3.11.1: icmp_seq=1 ttl=64 time=2.92 ms
-            64 bytes from 10.3.11.1: icmp_seq=1 ttl=64 time=2.27 ms
-            64 bytes from 10.3.11.1: icmp_seq=1 ttl=64 time=2.32 ms
-            64 bytes from 10.3.11.1: icmp_seq=1 ttl=64 time=2.59 ms
-            ^C
-            --- 10.3.11.1 ping statistics ---
-            4 packets transmitted, 4 received, 0% packet loss, time 2731ms
-        ```
-* Configuration de la NAT
+5. Configuration de la NAT
     * sur router3
         ```bash
             conf t
@@ -644,7 +602,50 @@
                 3 packets transmitted, 3 received, 0% packet loss, time 2108ms
             ```
 
-* Installation d'un service d'infra
+6. Test si les clients peuvent ping les servers
+    * Avant faut mettre les *GATEWAY* (J'avais oublié)
+        * Sur client1 & client2
+            ```bash
+                cat /etc/sysconfig/network-scripts/ifcfg-enp0s8
+
+                TYPE=Ethernet
+                BOOTPROTO=static
+                NAME=enp0s8
+                DEVICE=enp0s8
+                ONBOOT=yes
+                IPADDR=10.3.10.1
+                NETMASK=255.255.255.0
+                GATEWAY=10.3.10.254
+            ```
+        * Sur server1 et server2
+            ```bash
+                cat /etc/sysconfig/network-scripts/ifcfg-enp0s8
+
+                TYPE=Ethernet
+                BOOTPROTO=static
+                NAME=enp0s8
+                DEVICE=enp0s8
+                ONBOOT=yes
+                IPADDR=10.3.11.1
+                NETMASK=255.255.255.0
+                GATEWAY=10.3.11.254
+            ```
+        
+    * ping client1->server1
+        ```bash
+            ping 10.3.11.1
+
+            PING 10.3.11.1 (10.3.11.1) 56(84) bytes of data.
+            64 bytes from 10.3.11.1: icmp_seq=1 ttl=64 time=2.92 ms
+            64 bytes from 10.3.11.1: icmp_seq=1 ttl=64 time=2.27 ms
+            64 bytes from 10.3.11.1: icmp_seq=1 ttl=64 time=2.32 ms
+            64 bytes from 10.3.11.1: icmp_seq=1 ttl=64 time=2.59 ms
+            ^C
+            --- 10.3.11.1 ping statistics ---
+            4 packets transmitted, 4 received, 0% packet loss, time 2731ms
+        ```
+
+7. Installation d'un service d'infra
     * Comme dans le Tp précédent, on va utiliser nginx
         * Installation sur server1
             ```bash
