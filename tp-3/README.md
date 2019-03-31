@@ -549,7 +549,44 @@
             --- 10.3.11.1 ping statistics ---
             4 packets transmitted, 4 received, 0% packet loss, time 2731ms
         ```
+* Configuration de la NAT
+    * sur router3
+        ```bash
+            conf t
+            interface FastEthernet0/0 
+            ip address dhcp
+            no shut
+        ```
+    * On vient de recupérer l'ip : 192.168.122.82
+
+    * Acces aux autres router 
+         ```bash
+            interface FastEthernet0/0
+            ip nat outside
+            exit
+
+            interface FastEthernet0/1
+            ip nat outside
+            exit
+
+            interface FastEthernet0/2
+            ip nat outside
+            exit
+
+            ip nat inside source list 1 interface fastEthernet0/0 overload
+            access-list 1 permit any
+        ```
+    * Default passerelle
+        ```bash
+            router ospf 1
+            default-information originate
+        ```
+
+
+
+
+
   
-  
+
 ## Auteur
 Rédigé par [Lucas Consejo](https://github.com/lucasconsejo) - Etudiant Ingésup B2B [Ynov Bordeaux](https://www.ynov.com/)
