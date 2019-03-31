@@ -482,7 +482,7 @@
                     switchport mode access
                     switchport access vlan 30
                 ```
-        * Création de VLAN 40
+            * Création de VLAN 40
                 ```bash
                     conf t
                     vlan 40
