@@ -365,17 +365,17 @@
 * Topologie
 
     ```
-        client1       switch1              router1       router2            switch2
-        +-----+       +-------+            +-----+       +-----+            +-------+
-        |     +-------+       +------------+     +-------+     +------------+       |
-        +-----+  V10  +---+---+            +--+--+       +--+--+            +-------+
+        client1       switch1              router1       router2            switch2         server1
+        +-----+       +-------+            +-----+       +-----+            +-------+       +-----+
+        |     +-------+       +------------+     +-------+     +------------+       +-------+     |
+        +-----+  V10  +---+---+            +--+--+       +--+--+            +-------+  V30  +-----+
                           |                   |             |                   |
-                          | V20               |   router3   |                   | V30
+                          | V20               |   router3   |                   | V40
                           |                   |   +-----+   |                   |
                        +--+--+                +---+     +---+                +--+--+ 
                        |     |                    +--+--+                    |     |
                        +-----+                       |                       +-----+
-                       client2                       |                       server1
+                       client2                       |                       server2
                                                      |
                                                   +--+--+
                                                   |     |
@@ -390,12 +390,13 @@
     | client1.lab4.tp3 | 10.3.10.1/24   | x              | x              | x              | x              |
     | client2.lab4.tp3 | 10.3.10.2/24   | x              | x              | x              | x              |
     | server1.lab4.tp3 | x              | 10.3.11.1/24   | x              | x              | x              |
+    | server2.lab4.tp3 | x              | 10.3.11.2/24   | x              | x              | x              |
     | router1.lab4.tp3 | 10.3.10.254/24 | x              | 10.3.12.5/30   | 10.3.13.13/30  | x              | 
     | router2.lab4.tp3 | x              | 10.3.11.254/24 | 10.3.12.6/30   | x              | 10.3.14.21/30  | 
     | router3.lab4.tp3 | x              | x              | x              | 10.3.13.14/30  | 10.3.14.22/30  |
 
 
-*  Configuration des clients et du server
+*  Configuration des clients et des servers
     * Ajouter une ip - *Exemple sur client1*
         ```bash
             cat /etc/sysconfig/network-scripts/ifcfg-enp0s8
@@ -481,13 +482,61 @@
                     switchport mode access
                     switchport access vlan 30
                 ```
+        * Création de VLAN 40
+                ```bash
+                    conf t
+                    vlan 40
+                    name VLAN 40
+                    exit
+                ```
+            * Assigner une interface pour donner accès au VLAN
+                ```bash
+                    interface Ethernet 0/1
+                    switchport mode access
+                    switchport access vlan 40
+                ```
 
         * Configurer une interface entre switch2 et router2 (mode Trunk)
                 ```bash
-                    interface Ethernet 0/1
+                    interface Ethernet 0/2
                     switchport trunk encapsulation dot1q
                     switchport mode trunk
                 ```
+
+* Configuration inter-vlan
+
+    * sur router1
+        ```bash
+            interface FastEthernet1/0.10
+            encap dot1Q 10 
+            ip add 10.3.10.3 255.255.255.0 
+            no shut
+            exit
+        ```
+
+        ```bash
+            interface FastEthernet1/0.20
+            encap dot1Q 20 
+            ip add 10.3.10.3 255.255.255.0 
+            no shut
+            exit
+        ```
+    * sur router2
+        ```bash
+            interface FastEthernet1/0.30
+            encap dot1Q 30 
+            ip add 10.3.11.3 255.255.255.0 
+            no shut
+            exit
+        ```
+
+        ```bash
+            interface FastEthernet1/0.40
+            encap dot1Q 40 
+            ip add 10.3.11.3 255.255.255.0 
+            no shut
+            exit
+        ```
 
 * Configuration des 3 routers
     * OSPF sur tout les routers 
@@ -507,7 +556,7 @@
                 network 10.3.13.12 0.0.0.3 area 0
             ```
 
-* Test si les clients peuvent ping le server
+* Test si les clients peuvent ping les servers
     * Avant faut mettre les *GATEWAY* (J'avais oublié)
         * Sur client1 & client2
             ```bash
@@ -522,7 +571,7 @@
                 NETMASK=255.255.255.0
                 GATEWAY=10.3.10.254
             ```
-        * Sur server1
+        * Sur server1 et server2
             ```bash
                 cat /etc/sysconfig/network-scripts/ifcfg-enp0s8
 
@@ -581,12 +630,20 @@
             router ospf 1
             default-information originate
         ```
+    * Reste à tester si les clients et les servers ont accès à internet à présent
+        * client1
+            ```bash
+                ping 8.8.8.8
 
+                PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+                64 bytes from 8.8.8.8: icmp_seq=1 ttl=64 time=3.01 ms
+                64 bytes from 8.8.8.8: icmp_seq=2 ttl=64 time=2.97 ms
+                64 bytes from 8.8.8.8: icmp_seq=2 ttl=64 time=2.91 ms
+                ^C
+                --- 8.8.8.8 ping statistics ---
+                3 packets transmitted, 3 received, 0% packet loss, time 2108ms
+            ```
 
-
-
-
-  
 
 ## Auteur
 Rédigé par [Lucas Consejo](https://github.com/lucasconsejo) - Etudiant Ingésup B2B [Ynov Bordeaux](https://www.ynov.com/)
