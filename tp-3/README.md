@@ -644,6 +644,52 @@
                 3 packets transmitted, 3 received, 0% packet loss, time 2108ms
             ```
 
+* Installation d'un service d'infra
+    * Comme dans le Tp précédent, on va utiliser nginx
+        * Installation sur server1
+            ```bash
+                sudo yum install -y nginx
+            ```
+        * On ouvre le port 80 (http)
+            ```bash
+                sudo firewall-cmd --add-port=80/tcp --permanent
+            ```
+        * On reload la conf
+            ```bash
+                sudo firewall-cmd --reload
+            ```
+        * On lance le server
+            ```bash
+                sudo systemctl start nginx
+            ```
+
+    * Depuis client1
+        * Curl du site de server1
+            ```bash
+                curl 10.3.11.1
+            ```
+
+        * Résultat
+            ```html
+                <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+                    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+                    <head>
+                        <title>Test Nginx HTTP Server by Lucas Consejo</title>
+                        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                    </head>
+
+                    <body>
+                        <h1>Welcome to my test page</h1>
+
+                        <div class="content">
+                            <p>WOOOOOOOW !!!!!! If you see this page, it means that your config is working properly! YOUHOU! You finished the TP !!!!!!!! </p>
+
+                            <p>Here is the repo git of the rendering of the TP : <a href="https://github.com/lucasconsejo/CCNA2-TPs/tree/master/tp-3">link to the repo git</a></p>
+                        </div>
+                    </body>
+                </html>
+            ```
 
 ## Auteur
 Rédigé par [Lucas Consejo](https://github.com/lucasconsejo) - Etudiant Ingésup B2B [Ynov Bordeaux](https://www.ynov.com/)
