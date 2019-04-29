@@ -71,3 +71,14 @@
     | printer1.tp4     | x             | x             | x              | x              | x              | x              | 10.3.7.1/27     | x               |
     | router1.tp4      | 10.3.1.30/27  | 10.3.2.30/27  | 10.3.3.30/27   | 10.3.4.30/27   | 10.3.5.30/27   | 10.3.6.30/27   | 10.3.7.30/27    | 10.3.8.1/29     |
 
+
+* Liste du matériel nécessaire : 
+    1. Pro : Centos7 => 3x
+    2. Rh : Centos7 => 1x
+    3. Admin : Centos7 => 1x
+    4. Server : Centos7 => 2x
+    5. Printer => 1x
+    6. Router Cisco => 1x
+    7. Switch => 10x
+    8. Cables => 19x
+    
