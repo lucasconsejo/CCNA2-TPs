@@ -73,12 +73,13 @@
 
 
 * Liste du matériel nécessaire : 
-    1/ Pro : Centos7 => 3x
-    2/ Rh : Centos7 => 1x
-    3/ Admin : Centos7 => 1x
-    4/ Server : Centos7 => 2x
-    5/ Printer => 1x
-    6/ Router Cisco => 1x
-    7/ Switch => 10x
-    8/ Cables => 19x
+
+    * Pro : Centos7 => 3x
+    * Rh : Centos7 => 1x
+    * Admin : Centos7 => 1x
+    * Server : Centos7 => 2x
+    * Printer => 1x
+    * Router Cisco => 1x
+    * Switch => 10x
+    * Cables => 19x
     
