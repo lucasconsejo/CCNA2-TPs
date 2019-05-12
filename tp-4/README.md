@@ -87,6 +87,17 @@
     | router1.tp4      | 10.3.1.30/27  | 10.3.2.30/27  | 10.3.3.30/27   | 10.3.4.30/27   | 10.3.5.30/27   | 10.3.6.30/27   | 10.3.7.30/27    | 10.3.8.1/29     |
 
 
+* Plan VLAN :
+
+    | VLANs            | VLAN1   | VLAN2   | VLAN3   |
+    |------------------|---------|---------|---------|
+    | pro              | yes     | x       | x       |
+    | admin            | x       | yes     | x       |
+    | rh               | yes     | x       | x       |
+    | server1          | x       |         | yes     |
+    | server2          | x       | yes     | x       |
+    | printer          | x       | x       | yes     |
+
 * Liste du matériel nécessaire : 
 
     | Matériel          | Quantité |
