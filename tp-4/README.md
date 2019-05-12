@@ -59,7 +59,18 @@
 
 * Tableau d'adressage :
 
-    | Hosts            | 10.3.1.0/27   | 10.3.2.0/27   | 10.3.3.0/27    | 10.3.4.0/27    | 10.3.5.0/27    | 10.3.6.0/27    | 10.3.7.0/27     | 10.3.8.0/29     |
+    | Nom              | Adresse       |
+    |------------------|---------------|
+    | tp4-net1         | 10.3.1.0/27   |
+    | tp4-net2         | 10.3.2.0/27   |
+    | tp4-net3         | 10.3.3.0/27   |
+    | tp4-net4         | 10.3.4.0/27   |
+    | tp4-net5         | 10.3.5.0/27   |
+    | tp4-net6         | 10.3.6.0/27   |
+    | tp4-net7         | 10.3.7.0/27   |
+    | tp4-net8         | 10.3.8.0/29   |  
+      
+    | Hosts            | tp4-net1      | tp4-net2      | tp4-net3       | tp4-net4       | tp4-net5       | tp4-net6       | tp4-net7        | tp4-net8        |
     |------------------|---------------|---------------|----------------|----------------|----------------|----------------|-----------------|-----------------|
     | pro1.tp4         | 10.3.1.1/27   | x             | x              | x              | x              | x              | x               | x               |
     | pro2.tp4         | x             | 10.3.2.1/27   | x              | x              | x              | x              | x               | x               | 
@@ -74,12 +85,13 @@
 
 * Liste du matériel nécessaire : 
 
-    * Pro : Centos7 => 3x
-    * Rh : Centos7 => 1x
-    * Admin : Centos7 => 1x
-    * Server : Centos7 => 2x
-    * Printer => 1x
-    * Router Cisco => 1x
-    * Switch => 10x
-    * Cables => 19x
-    
+    | Matériel          | Quantité |
+    |-------------------|----------|
+    | Pro (Centos 7)    | 3        |
+    | RH (Centos 7)     | 1        |
+    | Admin (Centos 7)  | 1        |
+    | Server (Centos 7) | 2        |
+    | Printer           | 1        |
+    | Router Cisco      | 1        |
+    | Switch            | 10       |
+    | Cables            | 19       |
