@@ -57,6 +57,10 @@
 
     ```
 
+* Maquette GNS3 : 
+
+    ![Maquette](https://github.com/lucasconsejo/CCNA2-TPs/blob/master/tp-4/screen/maquette_gns3.png)
+
 * Tableau d'adressage :
 
     | Nom              | Adresse       |
