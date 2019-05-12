@@ -110,3 +110,16 @@
     | Router Cisco      | 1        |
     | Switch            | 10       |
     | Cables            | 19       |
+
+* Nos avis 
+
+    Nous avons choisi de prendre le menu 3 (infra small/medium office) car nous n'avions pas envie de faire de la sécu (menu 1) et parmi les deux projets d'infra, on a préféré voir de plus près, comment est organisée l'infrastructure dans une petite entreprise.
+
+    Nous avons tous deux trouvé le Tp intéressant car c'était une réelle mise en situation et cela nous a permis de mieux comprendre la configuration et l'utilité de router, switch ainsi que les VLAN, au sein d'une entreprise. On a aussi pu mieux se familiariser avec GNS3 malgré le fait qu'il nous a laissé pas mal de fil à retordre.
+
+    Voici donc nos bilans individuels:  
+    * FERREIRA Théo : le système de menus était super ! GNS3 super pratique quand ça fonctionne, une bonne manière pour faire un bilan de nos capacités.
+    * CONSEJO Lucas : le Tp était vraiment intéressant. Je ne suis pas trop centré sur le réseau, mais cela dit, j'essaie de m'intéresser à tout dans le domaine de l'informatique. Ce Tp m'a plu car j'ai découvert comment est organisé une infra small office.
+
+## Auteur
+Rédigé par [Lucas Consejo](https://github.com/lucasconsejo) & [Théo Ferreira](https://github.com/misfitonie) - Etudiant Ingésup B2B [Ynov Bordeaux](https://www.ynov.com/)
